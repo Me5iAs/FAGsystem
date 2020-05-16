@@ -1,0 +1,26 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+
+const routes: Routes = [
+  { path: 'home', loadChildren: () => import('./components/pages/home/home.module').then(m => m.HomeModule) }, 
+  { path: 'profile', loadChildren: () => import('./components/pages/profile/profile.module').then(m => m.ProfileModule) }, 
+  { path: 'delivery', loadChildren: () => import('./components/pages/pedidos-delivery/pedidos-delivery.module').then(m => m.PedidosDeliveryModule) }, 
+  { path: 'deposito', loadChildren: () => import('./components/pages/pedidos-deposito/pedidos-deposito.module').then(m => m.PedidosDepositoModule) }, 
+  { path: 'ingresos', loadChildren: () => import('./components/pages/otros-ingresos/otros-ingresos.module').then(m => m.OtrosIngresosModule) }, 
+  { path: 'movimientos', loadChildren: () => import('./components/pages/movimientos/movimientos.module').then(m => m.MovimientosModule) }, 
+  { path: 'clientes', loadChildren: () => import('./components/pages/clientes/clientes.module').then(m => m.ClientesModule) },
+  { path: 'rep_mov', loadChildren: () => import('./components/pages/rep-mov/rep-mov.module').then(m => m.RepMovModule) },
+  { path: 'contratos', loadChildren: () => import('./components/pages/contratos/contratos.module').then(m => m.ContratosModule) },
+  { path: 'mapa', loadChildren: () => import('./components/pages/mapa/mapa.module').then(m => m.MapaModule) },
+  { path: 'usuarios', loadChildren: () => import('./components/pages/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+  { path: 'documentos', loadChildren: () => import('./components/pages/documentos/documentos.module').then(m => m.DocumentosModule) },
+  { path: 'observaciones', loadChildren: () => import('./components/pages/observaciones/observaciones.module').then(m => m.ObservacionesModule) },
+  { path: 'ver_rec/:IdObs', loadChildren: () => import('./components/pages/ver-rec/ver-rec.module').then(m => m.VerRecModule) },
+  
+]
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

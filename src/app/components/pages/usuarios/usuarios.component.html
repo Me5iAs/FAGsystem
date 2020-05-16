@@ -1,0 +1,60 @@
+<mat-card class="delivery-card" *ngIf="Acciones.Estado==0">
+  <mat-card-header>
+    <mat-card-title>Administrar Usuarios </mat-card-title>
+    <mat-card-subtitle>Desde aqui podrás registrar y administrar los uaurios.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content >
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field style="width: 85%">
+          <mat-label>Filtro</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+        </mat-form-field>
+        <button mat-icon-button (click)="onNuevoUsuario()" style="float:right" >
+            <mat-icon style='margin-right:8px'>person_add</mat-icon>
+          </button>
+
+        <!-- displayedColumns: string[] = ['Usuario', 'Cargo', 'Unidad', 'Acciones']; -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                
+          <!-- Name Column -->
+          <ng-container matColumnDef="Usuario">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> USuario </th>
+            <td mat-cell *matCellDef="let element"> {{element.Usuario}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="Cargo">
+            <th mat-header-cell *matHeaderCellDef class="no_mobile"> Cargo </th>
+            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Cargo}} </td>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="Unidad">
+            <th mat-header-cell *matHeaderCellDef class="no_mobile"> Unidad </th>
+            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Unidad}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Acciones">
+            <th mat-header-cell *matHeaderCellDef class="celda"> Opciones </th>
+            <td mat-cell *matCellDef="let element" class="celda"> 
+              <button mat-icon-button>
+                <mat-icon matTooltip="ver información del Usuario" (click)="onInfoUsuario(element)" >info</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon matTooltip="Editar información del Usuario" (click)="onEditUsuario(element)" >edit</mat-icon>
+              </button>  
+              <button mat-icon-button >
+                <mat-icon matTooltip="Eliminar al Usuario" (click)="onDelUsuario(element)">highlight_off</mat-icon>
+              </button>  
+            </td>
+          </ng-container>  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+      <mat-card-footer>
+      </mat-card-footer>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

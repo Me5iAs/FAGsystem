@@ -1,0 +1,75 @@
+<mat-card style='
+max-height: 75vh;
+overflow-x: hidden;
+overflow-y: auto;'>
+  <mat-card-header>
+    
+    <button mat-icon-button style="position:absolute; right:10px">
+      <mat-icon (click)="onCancel()" style="margin:0px">cancel</mat-icon>
+    </button>
+
+    <mat-card-title *ngIf="data.Titulo" >{{data.Titulo}} </mat-card-title>
+  </mat-card-header>
+  <mat-card-content >
+    <form [formGroup]="InputForm">
+      <div *ngFor="let Campo of data.Campos; let i = index">
+        <mat-form-field *ngIf="Campo.Tipo=='Texto'">
+          <mat-label>{{Campo.Etiqueta}}</mat-label>
+          <input [readonly]="data.SoloLectura"  type="{{Campo.Type}}" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}" >
+        </mat-form-field>
+
+        <mat-form-field *ngIf="Campo.Tipo=='TextoL'">
+          <mat-label>{{Campo.Etiqueta}}</mat-label>
+          <textarea [readonly]="data.SoloLectura" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}">
+          </textarea>
+        </mat-form-field>
+        
+        <!-- <div class="button-row" *ngIf="Campo.Tipo=='TextoL'">
+          <mat-label>{{Campo.Etiqueta}}</mat-label>
+          <div  class="TextoL" 
+                style="resize:both; overflow:auto"
+                [attr.contenteditable]="data.SoloLectura ? 'false' : 'true'" 
+                (keyup)="onTextoL(Campo, $event)"
+                [innerHTML]="data.SoloLectura ? Campo.Valor : '' ">
+                
+          </div>
+          <input style="visibility:hidden"  type="{{Campo.Type}}" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}" >
+        </div> -->
+
+
+
+        <mat-form-field *ngIf="Campo.Tipo=='Fecha'">
+          <mat-label>{{Campo.Etiqueta}}</mat-label>
+          <input matInput [readonly]="data.SoloLectura" [matDatepicker]="patientDueDate_i" placeholder="{{Campo.Placeholder}}" 
+            [(ngModel)]="Campo.Valor" formControlName="{{Campo.Nombre}}">
+            <mat-datepicker-toggle matSuffix [for]="patientDueDate_i"></mat-datepicker-toggle>
+            <mat-datepicker #patientDueDate_i></mat-datepicker>   
+          </mat-form-field> 
+
+          <mat-form-field *ngIf="Campo.Tipo=='Select'">
+            <mat-label>{{Campo.Etiqueta}}</mat-label>
+            <mat-select formControlName="{{Campo.Nombre}}" [(ngModel)]="Campo.Valor">
+              <mat-option *ngFor="let op of Campo.Opciones" [value]="op.Valor" >
+                {{op.Texto}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="button-row" *ngIf="Campo.Tipo=='Archivo'">
+            <label class="custom-file-upload">
+              <input type="file" [(ngModel)]="Campo.Valor" formControlName="{{Campo.Nombre}}" accept="{{Campo.Type}}" (change)="previewImage($event); onFileChange($event)" >            
+              <mat-icon>add_a_photo</mat-icon>
+              {{Campo.Etiqueta}}
+            </label>
+            <span>{{archivo}}</span>
+            <img [src]="imageUrl" style="max-width: 100%" *ngIf="imageUrl" />
+          </div>        
+      </div>
+    </form>
+</mat-card-content>
+  <mat-card-footer style="text-align: center">
+    <button *ngIf="File" style="margin-bottom:5px" mat-raised-button color="primary" [disabled]="!InputForm.valid" [mat-dialog-close]="FileData">Ok</button>
+    <button *ngIf="!File" style="margin-bottom:5px" mat-raised-button color="primary" [disabled]="!InputForm.valid" [mat-dialog-close]="InputForm.value">Ok</button>
+  </mat-card-footer>
+
+</mat-card>

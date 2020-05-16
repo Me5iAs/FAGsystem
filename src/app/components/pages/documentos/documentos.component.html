@@ -1,0 +1,69 @@
+<mat-card class="delivery-card" *ngIf="Acciones.Estado==0">
+  <mat-card-header>
+    <mat-card-title>Administrar Documentos </mat-card-title>
+    <mat-card-subtitle>Desde aqui podrás registrar y administrar los documentos.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content >
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field style="width: 85%">
+          <mat-label>Filtro</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+        </mat-form-field>
+        <button mat-icon-button (click)="onNuevoDoc()" style="float:right" >
+            <mat-icon style='margin-right:8px'>playlist_add</mat-icon>
+          </button>
+
+          <!-- displayedColumns: string[] = ['Ente_Control', 'Fecha', 'Numero', 'Asunto', 'Acciones']; -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                
+          <!-- Name Column -->
+          <ng-container matColumnDef="Ente_control">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Ente_control </th>
+            <td mat-cell *matCellDef="let element"> {{element.Unidad}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="Fecha">
+            <th mat-header-cell *matHeaderCellDef class="no_mobile"> Fecha </th>
+            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Fecha}} </td>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="Numero">
+            <th mat-header-cell *matHeaderCellDef> Numero </th>
+            <td mat-cell *matCellDef="let element" > {{element.Numero}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Asunto">
+            <th mat-header-cell *matHeaderCellDef class="no_mobile"> Asunto </th>
+            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Asunto}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Acciones">
+            <th mat-header-cell *matHeaderCellDef class="celda"> Opciones </th>
+            <td mat-cell *matCellDef="let element" class="celda"> 
+              
+              <button mat-icon-button>
+                <mat-icon matTooltip="ver archivo" (click)="onVerDoc(element)" >attach_file</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon matTooltip="ver información del Documento" (click)="onInfoDoc(element)" >info</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon matTooltip="Editar información del Documento" (click)="onEditDoc(element)" >edit</mat-icon>
+              </button>  
+              <button mat-icon-button >
+                <mat-icon matTooltip="Eliminar el Documento" (click)="onDelDoc(element)">highlight_off</mat-icon>
+              </button>  
+            </td>
+          </ng-container>  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+      <mat-card-footer>
+      </mat-card-footer>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
