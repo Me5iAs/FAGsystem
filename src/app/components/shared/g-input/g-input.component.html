@@ -13,6 +13,7 @@ overflow-y: auto;'>
   <mat-card-content >
     <form [formGroup]="InputForm">
       <div *ngFor="let Campo of data.Campos; let i = index">
+
         <mat-form-field *ngIf="Campo.Tipo=='Texto'">
           <mat-label>{{Campo.Etiqueta}}</mat-label>
           <input [readonly]="data.SoloLectura"  type="{{Campo.Type}}" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}" >
@@ -23,20 +24,6 @@ overflow-y: auto;'>
           <textarea [readonly]="data.SoloLectura" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}">
           </textarea>
         </mat-form-field>
-        
-        <!-- <div class="button-row" *ngIf="Campo.Tipo=='TextoL'">
-          <mat-label>{{Campo.Etiqueta}}</mat-label>
-          <div  class="TextoL" 
-                style="resize:both; overflow:auto"
-                [attr.contenteditable]="data.SoloLectura ? 'false' : 'true'" 
-                (keyup)="onTextoL(Campo, $event)"
-                [innerHTML]="data.SoloLectura ? Campo.Valor : '' ">
-                
-          </div>
-          <input style="visibility:hidden"  type="{{Campo.Type}}" [(ngModel)]="Campo.Valor" matInput placeholder="{{Campo.Placeholder}}" formControlName="{{Campo.Nombre}}" >
-        </div> -->
-
-
 
         <mat-form-field *ngIf="Campo.Tipo=='Fecha'">
           <mat-label>{{Campo.Etiqueta}}</mat-label>
@@ -46,9 +33,15 @@ overflow-y: auto;'>
             <mat-datepicker #patientDueDate_i></mat-datepicker>   
           </mat-form-field> 
 
+          
           <mat-form-field *ngIf="Campo.Tipo=='Select'">
             <mat-label>{{Campo.Etiqueta}}</mat-label>
-            <mat-select formControlName="{{Campo.Nombre}}" [(ngModel)]="Campo.Valor">
+            <mat-select formControlName="{{Campo.Nombre}}" [(ngModel)]="Campo.Valor" *ngIf="Campo.Multiple==true" multiple>
+              <mat-option *ngFor="let op of Campo.Opciones" [value]="op.Valor" >
+                {{op.Texto}}
+              </mat-option>
+            </mat-select>
+            <mat-select formControlName="{{Campo.Nombre}}" [(ngModel)]="Campo.Valor" *ngIf="Campo.Multiple!=true">
               <mat-option *ngFor="let op of Campo.Opciones" [value]="op.Valor" >
                 {{op.Texto}}
               </mat-option>

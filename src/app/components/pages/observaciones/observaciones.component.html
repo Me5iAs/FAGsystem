@@ -1,6 +1,6 @@
-<mat-card class="delivery-card">
+<mat-card class="delivery-card" *ngIf="Acciones.Estado==0">
   <mat-card-header>
-    <mat-card-title>OBSERVACIONES </mat-card-title>
+    <mat-card-title>Observaciones </mat-card-title>
     <mat-card-subtitle>Desde aqui podrás registrar y administrar las observaciones, además de que podrás gestionar las recomendaciones asociadas.</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content >
@@ -14,7 +14,7 @@
             <mat-icon style='margin-right:8px'>playlist_add</mat-icon>
           </button>
 
-          <!-- displayedColumns: string[] = ['Doc', 'Area', 'Categoria', 'N°', 'Obs', "Fecha Imp"]; -->
+          <!-- displayedColumns: string[] = ['Nro', 'Obs', 'Area', "FechaImp", 'Doc', 'Categoria', "Acciones"]; -->
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
           <ng-container matColumnDef="Nro">
@@ -39,17 +39,17 @@
             <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.FechaImplementacion}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="Categoria">
+          <!-- <ng-container matColumnDef="Categoria">
             <th mat-header-cell *matHeaderCellDef class="no_mobile"> Categoría </th>
-            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Categoria}} </td>
-          </ng-container>
+            <td mat-cell *matCellDef="let element" class="no_mobile"> {{element.Documento}} </td>
+          </ng-container> -->
                     <!-- Weight Column -->
 
-          <ng-container matColumnDef="Doc">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Doc </th>
+          <ng-container matColumnDef="Documento">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Documento </th>
             <td mat-cell *matCellDef="let element"> 
               <a href="http://localhost/archivos/{{element.RutaDoc}}" target="_blank">
-                {{element.Doc}} 
+                {{element.Documento}} 
               </a>
             </td>
           </ng-container>

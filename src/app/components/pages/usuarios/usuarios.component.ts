@@ -11,8 +11,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {GInputComponent} from "../../shared/g-input/g-input.component";
 import {inputI} from "../../../models/input.interface"
 
-
-
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',

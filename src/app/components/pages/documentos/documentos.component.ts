@@ -19,7 +19,7 @@ export class DocumentosComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   Acciones = {Estado:0, Detalle:''} //0 lista, 1 nuevo, 2 editar, 3 detalle
-
+  
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -29,9 +29,7 @@ export class DocumentosComponent implements OnInit {
   public resultadoCarga;
 
 
-  constructor(private gQuery:gQueryService, public dialog: MatDialog, private enviandoImagen: SubirService) {
-    
-  }
+  constructor(private gQuery:gQueryService, public dialog: MatDialog, private enviandoImagen: SubirService) {}
 
   ngOnInit() {
     this.gQuery

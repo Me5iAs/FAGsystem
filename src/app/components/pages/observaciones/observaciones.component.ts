@@ -7,7 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import {GInputComponent} from "../../shared/g-input/g-input.component";
 import {inputI} from "../../../models/input.interface"
 import {MatDialog} from '@angular/material/dialog';
-import { SubirService } from "../../../services/subir.service"
+
 
 @Component({
   selector: 'app-observaciones',
@@ -15,8 +15,11 @@ import { SubirService } from "../../../services/subir.service"
   styleUrls: ['./observaciones.component.styl']
 })
 export class ObservacionesComponent implements OnInit {
-  displayedColumns: string[] = ['Nro', 'Obs', 'Area', "FechaImp", 'Doc', 'Categoria', "Acciones"];
+
+  displayedColumns: string[] = ['Nro', 'Obs', 'Area', "FechaImp", 'Documento', "Acciones"];
   dataSource = new MatTableDataSource();
+  
+  Acciones = {Estado:0, Detalle:''} //0 lista, 1 nuevo, 2 editar, 3 detalle
   
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -90,7 +93,7 @@ export class ObservacionesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         console.log(result);
-        // return;
+        
         // str=str.replace(/abc/g," ");
         result.Documento=result.Documento.replace(/\|/g,"¦");
         result.Area=result.Area.replace(/\|/g,"¦");
@@ -129,13 +132,13 @@ export class ObservacionesComponent implements OnInit {
 
   onInfoObs(elem){
     this.input = <inputI> {
-      Titulo      : "Nueva Observación",
+      Titulo      : "Info Observación",
       SoloLectura : true,
       Campos: [
-        {Nombre:"Documento",  Tipo:"Texto",   Etiqueta:"Documento",             Valor: elem.Doc},
+        {Nombre:"Documento",  Tipo:"Texto",   Etiqueta:"Documento",             Valor: elem.Documento},
         {Nombre:"Area",       Tipo:"Texto",   Etiqueta:"Area",                  Valor: elem.Unidad},
         {Nombre:"Categoria",  Tipo:"Texto",   Etiqueta:"Categoria",             Valor: elem.Categoria},
-        {Nombre:"NumeroObs",  Tipo:"Texto",   Etiqueta:"N° Obs",                Valor: elem.NumeroObs},
+        {Nombre:"NumeroObs",  Tipo:"Texto",   Etiqueta:"N° Obs",                Valor: elem.NumObs},
         {Nombre:"Titulo",     Tipo:"Texto",   Etiqueta:"Titulo",                Valor: elem.Titulo},
         {Nombre:"Incidencia", Tipo:"TextoL",  Etiqueta:"Incidencia",            Valor: elem.Incidencia},
         {Nombre:"FechaP",     Tipo:"Texto",   Etiqueta:"Fecha Pedido",          Valor: elem.FechaPedido},
@@ -161,7 +164,7 @@ export class ObservacionesComponent implements OnInit {
         {Nombre:"Documento",  Tipo:"Select",  Etiqueta:"Documento",            Valor: elem.IdDoc,                                       Validacion:[Validators.required], Opciones: this.Documentos},
         {Nombre:"Area",       Tipo:"Select",  Etiqueta:"Area",                 Valor: elem.IdUnidad,                                    Validacion:[Validators.required], Opciones: this.AreasControl},
         {Nombre:"Categoria",  Tipo:"Texto",   Etiqueta:"Categoria",            Valor: elem.Categoria,                                   Validacion:[Validators.required]},
-        {Nombre:"NumeroObs",  Tipo:"Texto",   Etiqueta:"N° Obs",               Valor: elem.NumeroObs,                                   Validacion:[Validators.required]},
+        {Nombre:"NumeroObs",  Tipo:"Texto",   Etiqueta:"N° Obs",               Valor: elem.NumObs,                                   Validacion:[Validators.required]},
         {Nombre:"Titulo",     Tipo:"Texto",   Etiqueta:"Titulo",               Valor: elem.Titulo,                                      Validacion:[Validators.required]},
         {Nombre:"Incidencia", Tipo:"TextoL",  Etiqueta:"Incidencia",           Valor: elem.Incidencia,                                  Validacion:[Validators.required]},
         {Nombre:"FechaP",     Tipo:"Fecha",   Etiqueta:"Fecha Pedido",         Valor: this.gQuery.fecha_n2d(elem.FechaPedido),          Validacion:[Validators.required], DatePicker: "Picker1"},

@@ -43,11 +43,8 @@ mat-icon
   width: 100%;
 }
 
-.celda
-  padding-right: 2px !important 
-  min-width: 120px
-  @media screen and (max-width:667px)
-    padding: 0px !important 
+th.mat-header-cell, td.mat-cell, td.mat-footer-cel
+  padding 5px
 
 .no_mobile
   
@@ -73,4 +70,22 @@ input[type="file"] {
 .map-container{
   border-radius: 5px;
   box-shadow: 0px 0px 8px 5px rgba(45,45,45,.2);
+}
+
+.celda
+  min-width 120px
+
+
+  .example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
 }

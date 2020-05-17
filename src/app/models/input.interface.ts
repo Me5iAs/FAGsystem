@@ -22,6 +22,7 @@ export interface campoI{
   Valor?: any;
   Validacion?: Validators;
   Opciones?: opcionI[];
+  Multiple?: boolean; //sólo para select
   MapaOpciones?: {
 
   }
